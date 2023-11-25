@@ -22,3 +22,27 @@ END//
 
 DELIMITER ;
 CALL second_counter(123456);
+
+-- Выведите только четные числа от 1 до 10. Пример: 2,4,6,8,10
+
+DELIMITER //
+CREATE PROCEDURE get_even(`start` INT, `end` INT)
+BEGIN
+	DECLARE i INT DEFAULT `start`;
+    DECLARE result TEXT DEFAULT NULL;
+    WHILE  i<=`end` DO
+        IF i%2 = 0 THEN
+			IF result IS NULL THEN
+				SET result = concat(i);
+			ELSE
+				SET result = concat(result, ', ', i);
+			END IF;
+		END IF;
+        SET i = i + 1;
+    END WHILE;
+	SELECT result;
+END //
+DELIMITER ;
+
+CALL get_even(1, 10);
+CALL second_counter(123456);
